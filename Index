@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Advanced India Tax Wizard</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial;background:linear-gradient(120deg,#eef2f7,#dfe9f3);margin:0}
+.container{max-width:1000px;margin:auto;padding:12px}
+.card{background:white;border-radius:14px;padding:18px;margin-bottom:18px;box-shadow:0 8px 20px rgba(0,0,0,.08);overflow:hidden}
+h2{color:#0b3d91;margin-top:0}
+.step{display:none}
+.step.active{display:block}
+button{background:#0b3d91;color:white;border:none;padding:12px 18px;border-radius:8px;margin-top:15px;cursor:pointer;font-weight:600;width:auto}
+button:hover{background:#062a63}
+input,select{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #cfd6e4;font-size:14px}
+.nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px;display:block;overflow-x:auto}
+th,td{border:1px solid #e3e8f0;padding:10px;text-align:left;white-space:nowrap}
+th{background:#f0f4fb}
+.result{font-size:18px;font-weight:700;color:#0b3d91;margin-top:15px}
+.small{font-size:13px;color:#444;margin-top:6px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.nav{flex-direction:column}button{width:100%}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="card">
+<h2>Deduction Guide (Old vs New)</h2>
+<table>
+<tr><th>Section</th><th>Description</th><th>Old</th><th>New</th><th>Limit</th></tr>
+<tr><td>Standard</td><td>Standard deduction</td><td>Yes</td><td>Yes</td><td>50k/75k</td></tr>
+<tr><td>80C</td><td>PPF, LIC, ELSS</td><td>Yes</td><td>No</td><td>1.5L</td></tr>
+<tr><td>80D</td><td>Health insurance</td><td>Yes</td><td>No</td><td>25k-75k</td></tr>
+<tr><td>80DD</td><td>Dependent disability</td><td>Yes</td><td>No</td><td>75k-1.25L</td></tr>
+<tr><td>24(b)</td><td>Home loan interest</td><td>Yes</td><td>Only let-out property allowed</td><td>2L</td></tr>
+<tr><td>80E</td><td>Education loan</td><td>Yes</td><td>No</td><td>No limit</td></tr>
+<tr><td>80G</td><td>Donations</td><td>Yes</td><td>No</td><td>Varies</td></tr>
+<tr><td>80CCD(1B)</td><td>NPS</td><td>Yes</td><td>Yes</td><td>50k</td></tr>
+<tr><td>HRA</td><td>House rent allowance</td><td>Yes</td><td>No</td><td>As formula</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>Tax Wizard Calculator</h2>
+
+<div class="step active" id="s1">
+<h3>Step 1: Income & Regime</h3>
+<select id="regime" onchange="toggleDed()"><option value="new">New Regime</option><option value="old">Old Regime</option></select>
+<input id="income" placeholder="Annual Income">
+<div class="nav"><span></span><button onclick="next(2)">Next</button></div>
+</div>
+
+<div class="step" id="s2">
+<h3>Step 2: Deductions</h3>
+<div id="oldDed" class="grid">
+<input id="d80c" max="150000" placeholder="80C (max 1.5L)">
+<input id="d80d" max="75000" placeholder="80D (max 75k)">
+<input id="d80dd" max="125000" placeholder="80DD (max 1.25L)">
+<input id="d24old" max="200000" placeholder="24(b) self occupied (max 2L)">
+<input id="d80e" placeholder="80E education loan">
+<input id="d80g" placeholder="80G donation">
+</div>
+<div id="newDed" class="grid">
+<input id="d24new" placeholder="24(b) let-out property interest">
+</div>
+<div id="commonDed" class="grid">
+<input id="dnps" max="50000" placeholder="80CCD(1B) NPS (max 50k)">
+</div>
+<div class="nav"><button onclick="next(1)">Back</button><button onclick="next(3)">Next</button></div>
+</div>
+
+<div class="step" id="s3">
+<h3>Step 3: HRA Details</h3>
+<div id="hraBlock" class="grid">
+<input id="basic" placeholder="Basic Salary">
+<input id="hra" placeholder="HRA Received">
+<input id="rent" placeholder="Rent Paid">
+</div>
+<div class="nav"><button onclick="next(2)">Back</button><button onclick="calc()">Calculate</button></div>
+</div>
+
+<div class="result" id="out"></div>
+<div class="small" id="taxDetail"></div>
+</div>
+
+</div>
+
+<script>
+function next(n){document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));document.getElementById('s'+n).classList.add('active')}
+
+function toggleDed(){let r=regime.value;document.getElementById('oldDed').style.display=r=='old'?'grid':'none';document.getElementById('hraBlock').style.display=r=='old'?'grid':'none';document.getElementById('newDed').style.display=r=='new'?'grid':'none'}
+
+function slabNew(t){let tax=0,sl=[[400000,0],[800000,.05],[1200000,.10],[1600000,.15],[2000000,.20],[2400000,.25],[1e12,.30]],p=0;for(let s of sl){if(t>p){tax+=(Math.min(t,s[0])-p)*s[1];p=s[0]}}if(t<=1200000)tax=0;return tax}
+function slabOld(t){let tax=0,sl=[[250000,0],[500000,.05],[1000000,.20],[1e12,.30]],p=0;for(let s of sl){if(t>p){tax+=(Math.min(t,s[0])-p)*s[1];p=s[0]}}if(t<=500000)tax=0;return tax}
+
+function calc(){
+let r=regime.value
+let incomeVal=+income.value
+let std=r=='new'?75000:50000
+let oldDed=(+d80c.value||0)+(+d80d.value||0)+(+d80dd.value||0)+(+d24old.value||0)+(+d80e.value||0)+(+d80g.value||0)
+let newDed=(+d24new.value||0)
+let common=(+dnps.value||0)
+let hraEx=0
+if(r=='old') hraEx=Math.min(+hra.value,(+rent.value-0.1*+basic.value),0.4*+basic.value)
+let taxable=incomeVal-std-(r=='old'?oldDed+hraEx+common:newDed+common)
+let tax=r=='new'?slabNew(taxable):slabOld(taxable)
+let cess=tax*0.04
+let finalTax=tax+cess
+out.innerHTML="Taxable Income: "+taxable+"<br>Final Tax Liability: "+finalTax+"<br>Monthly TDS: "+(finalTax/12)
+taxDetail.innerHTML="Income: "+incomeVal+" | Standard Deduction: "+std+" | Other deductions: "+(r=='old'?oldDed:newDed)+" | NPS: "+common+" | HRA Exemption: "+hraEx+" | Tax before cess: "+tax+" | Health & Education Cess: "+cess
+}
+
+toggleDed()
+</script>
+</body>
+</html>
