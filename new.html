@@ -1,0 +1,521 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Enterprise Income Tax Planning System</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+font-family:Segoe UI,Arial;
+background:#eef2f7;
+margin:0;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:30px;
+}
+
+header{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+margin-bottom:20px;
+}
+
+h1{
+margin:0;
+color:#0d6efd;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+margin-bottom:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+}
+
+label{
+font-weight:600;
+font-size:14px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-top:6px;
+border-radius:6px;
+border:1px solid #ccd2da;
+}
+
+.section{display:none}
+.section.active{display:block}
+
+.nav{
+display:flex;
+justify-content:space-between;
+margin-top:20px;
+}
+
+button{
+padding:12px 18px;
+background:#0d6efd;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.progressbar{
+height:8px;
+background:#e1e6ef;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+#progress{
+height:8px;
+background:#0d6efd;
+width:20%;
+}
+
+.summary{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+}
+
+.metric{
+background:#0d6efd;
+color:white;
+padding:15px;
+border-radius:8px;
+text-align:center;
+}
+
+.progress{
+height:10px;
+background:#e3e8ef;
+border-radius:10px;
+margin-top:10px;
+}
+
+.bar{
+height:10px;
+background:#0d6efd;
+width:0%;
+}
+
+@media(max-width:900px){
+
+.grid{grid-template-columns:1fr}
+.summary{grid-template-columns:1fr 1fr}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+<h1>Enterprise Income Tax Planning System</h1>
+</header>
+
+<div class="progressbar">
+<div id="progress"></div>
+</div>
+
+<!-- DEMOGRAPHICS -->
+
+<div id="demo" class="section active card">
+
+<h3>Step 1: Demographics</h3>
+
+<div class="grid">
+
+<div>
+<label>Age</label>
+<input id="age" value="30">
+</div>
+
+<div>
+<label>Other Income</label>
+<input id="otherIncome" value="0">
+</div>
+
+</div>
+
+<div class="nav">
+<button onclick="nextStep()">Next</button>
+</div>
+
+</div>
+
+
+<!-- SALARY -->
+
+<div id="salary" class="section card">
+
+<h3>Step 2: Salary Details</h3>
+
+<div class="grid">
+
+<div>
+<label>Basic Salary</label>
+<input id="basic" value="600000">
+</div>
+
+<div>
+<label>HRA Received</label>
+<input id="hra" value="240000">
+</div>
+
+<div>
+<label>Rent Paid</label>
+<input id="rent" value="180000">
+</div>
+
+<div>
+<label>Allowances</label>
+<input id="allowance" value="200000">
+</div>
+
+<div>
+<label>Bonus</label>
+<input id="bonus" value="50000">
+</div>
+
+</div>
+
+<div class="nav">
+<button onclick="prevStep()">Previous</button>
+<button onclick="nextStep()">Next</button>
+</div>
+
+</div>
+
+
+<!-- EMPLOYER CONTRIBUTIONS -->
+
+<div id="employer" class="section card">
+
+<h3>Step 3: Employer Contributions (₹7.5L Combined Limit)</h3>
+
+<div class="grid">
+
+<div>
+<label>Employer EPF</label>
+<input id="epfEmployer" value="72000">
+</div>
+
+<div>
+<label>Employer NPS</label>
+<input id="npsEmployer" value="50000">
+</div>
+
+<div>
+<label>Superannuation</label>
+<input id="superEmployer" value="30000">
+</div>
+
+</div>
+
+<div>
+Combined Contribution ₹ <span id="empTotal">0</span>
+<br>
+Taxable Excess ₹ <span id="empExcess">0</span>
+</div>
+
+<div class="nav">
+<button onclick="prevStep()">Previous</button>
+<button onclick="nextStep()">Next</button>
+</div>
+
+</div>
+
+
+<!-- 80C GROUP -->
+
+<div id="deduction" class="section card">
+
+<h3>Step 4: 80C Group (₹2L Combined Limit)</h3>
+
+<div class="grid">
+
+<div>
+<label>EPF Employee</label>
+<input id="epf" value="72000">
+</div>
+
+<div>
+<label>PPF</label>
+<input id="ppf" value="20000">
+</div>
+
+<div>
+<label>ELSS</label>
+<input id="elss" value="20000">
+</div>
+
+<div>
+<label>Life Insurance</label>
+<input id="life" value="15000">
+</div>
+
+<div>
+<label>Home Loan Principal</label>
+<input id="principal" value="30000">
+</div>
+
+<div>
+<label>NPS (80CCD1)</label>
+<input id="nps1" value="20000">
+</div>
+
+<div>
+<label>NPS Additional (80CCD1B)</label>
+<input id="nps1b" value="30000">
+</div>
+
+</div>
+
+<div>
+Eligible Deduction ₹ <span id="ded80c">0</span>
+</div>
+
+<div class="nav">
+<button onclick="prevStep()">Previous</button>
+<button onclick="nextStep()">Next</button>
+</div>
+
+</div>
+
+
+<!-- HEALTH -->
+
+<div id="health" class="section card">
+
+<h3>Step 5: Health Insurance (80D)</h3>
+
+<div class="grid">
+
+<div>
+<label>Self / Family Premium</label>
+<input id="healthSelf" value="20000">
+</div>
+
+<div>
+<label>Parents Premium</label>
+<input id="healthParents" value="30000">
+</div>
+
+</div>
+
+<div>
+Eligible Deduction ₹ <span id="ded80d">0</span>
+</div>
+
+<div class="nav">
+<button onclick="prevStep()">Previous</button>
+<button onclick="calculateTax()">Calculate Tax</button>
+</div>
+
+</div>
+
+
+<!-- RESULT -->
+
+<div id="result" class="section">
+
+<div class="card">
+
+<h3>Tax Summary</h3>
+
+<div class="summary">
+
+<div class="metric">
+Taxable Income<br>₹ <span id="income"></span>
+</div>
+
+<div class="metric">
+Old Regime Tax<br>₹ <span id="oldtax"></span>
+</div>
+
+<div class="metric">
+New Regime Tax<br>₹ <span id="newtax"></span>
+</div>
+
+<div class="metric">
+Tax Saved<br>₹ <span id="saved"></span>
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Tax Comparison</h3>
+<canvas id="chart"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let steps=["demo","salary","employer","deduction","health","result"]
+let current=0
+
+function showStep(){
+
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"))
+document.getElementById(steps[current]).classList.add("active")
+
+document.getElementById("progress").style.width=((current+1)/steps.length*100)+"%"
+
+}
+
+function nextStep(){
+if(current<steps.length-1)current++
+showStep()
+}
+
+function prevStep(){
+if(current>0)current--
+showStep()
+}
+
+function v(id){
+return parseFloat(document.getElementById(id).value)||0
+}
+
+function calculateTax(){
+
+let basic=v("basic")
+let hra=v("hra")
+let rent=v("rent")
+let allowance=v("allowance")
+let bonus=v("bonus")
+
+let salary=basic+hra+allowance+bonus
+
+let hraExempt=Math.min(hra,rent-(0.1*basic),0.5*basic)
+if(hraExempt<0)hraExempt=0
+
+let empTotal=v("epfEmployer")+v("npsEmployer")+v("superEmployer")
+let empExcess=Math.max(0,empTotal-750000)
+
+document.getElementById("empTotal").innerText=format(empTotal)
+document.getElementById("empExcess").innerText=format(empExcess)
+
+let sec80cGroup=v("epf")+v("ppf")+v("elss")+v("life")+v("principal")+v("nps1")
+
+let sec80cEligible=Math.min(sec80cGroup,150000)
+
+let npsAdditional=Math.min(v("nps1b"),50000)
+
+let total80c=sec80cEligible+npsAdditional
+
+document.getElementById("ded80c").innerText=format(total80c)
+
+let healthSelf=Math.min(v("healthSelf"),25000)
+let healthParents=Math.min(v("healthParents"),50000)
+
+let totalHealth=healthSelf+healthParents
+
+document.getElementById("ded80d").innerText=format(totalHealth)
+
+let deductions=total80c+totalHealth
+
+let income=salary-hraExempt-deductions-50000+v("otherIncome")+empExcess
+
+if(income<0)income=0
+
+let oldTax=taxOld(income)*1.04
+
+let newIncome=salary+v("otherIncome")-75000
+let newTax=taxNew(newIncome)*1.04
+
+document.getElementById("income").innerText=format(income)
+document.getElementById("oldtax").innerText=format(oldTax)
+document.getElementById("newtax").innerText=format(newTax)
+document.getElementById("saved").innerText=format(Math.abs(oldTax-newTax))
+
+renderChart(oldTax,newTax)
+
+current=5
+showStep()
+
+}
+
+function taxOld(i){
+
+let t=0
+
+if(i>250000)t+=Math.min(i-250000,250000)*.05
+if(i>500000)t+=Math.min(i-500000,500000)*.20
+if(i>1000000)t+=(i-1000000)*.30
+
+return t
+
+}
+
+function taxNew(i){
+
+let t=0
+
+if(i>300000)t+=Math.min(i-300000,300000)*.05
+if(i>600000)t+=Math.min(i-600000,300000)*.10
+if(i>900000)t+=Math.min(i-900000,300000)*.15
+if(i>1200000)t+=Math.min(i-1200000,300000)*.20
+if(i>1500000)t+=(i-1500000)*.30
+
+return t
+
+}
+
+function renderChart(o,n){
+
+new Chart(document.getElementById("chart"),{
+type:"bar",
+data:{
+labels:["Old Regime","New Regime"],
+datasets:[{label:"Tax",data:[o,n]}]
+}
+})
+
+}
+
+function format(n){
+return Math.round(n).toLocaleString("en-IN")
+}
+
+</script>
+
+</body>
+</html>
+```
