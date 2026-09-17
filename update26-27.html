@@ -1003,10 +1003,12 @@
 
   document.getElementById("printBtn").addEventListener("click", ()=>{
     showReportForOutput();
+    window.scrollTo(0, 0);
     setTimeout(()=>{
+      window.scrollTo(0, 0);
       window.print();
       setTimeout(restoreAfterOutput, 300);
-    }, 100);
+    }, 150);
   });
 
   document.getElementById("exportBtn").addEventListener("click", (e)=>{
@@ -1015,13 +1017,23 @@
     const originalText = btn.innerHTML;
     btn.innerHTML = "⏳ Generating…";
     showReportForOutput();
+    window.scrollTo(0, 0);
     setTimeout(()=>{
+      window.scrollTo(0, 0);
       const element = document.getElementById('repPage');
       const opt = {
         margin: [10, 10, 10, 10],
         filename: 'Tax_Regime_Report_FY2026-27_' + new Date().toISOString().split('T')[0] + '.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, backgroundColor: '#ffffff', windowWidth: 794, width: 794 },
+        html2canvas: {
+          scale: 2,
+          backgroundColor: '#ffffff',
+          windowWidth: 794,
+          scrollX: 0,
+          scrollY: 0,
+          x: 0,
+          y: 0
+        },
         jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4', compress: true },
         pagebreak: { mode: ['css', 'legacy'], avoid: ['.rep-section', '.rep-table tr'] }
       };
@@ -1032,7 +1044,7 @@
         restoreAfterOutput();
         btn.disabled = false; btn.innerHTML = originalText;
       });
-    }, 150);
+    }, 200);
   });
 
   loadSaved();
