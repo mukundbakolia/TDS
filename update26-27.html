@@ -837,6 +837,17 @@
     const flatMonthlyOld = monthsWithCurrent>0 ? remainingLiabilityOld / monthsWithCurrent : 0;
     const flatMonthlyNew = monthsWithCurrent>0 ? remainingLiabilityNew / monthsWithCurrent : 0;
 
+    // Weighted month-units: the pro-rated joining month counts as a fraction of a
+    // full month (matching its fraction of salary), so its TDS share shrinks the
+    // same way its pay did — the shortfall is absorbed by the full months, and the
+    // annual total still equals the exact remaining liability.
+    const joinMonthFraction = isMidYear ? (daysWorkedInJoinMonth / daysInJoinMonth) : 1;
+    const monthUnits = isMidYear ? (joinMonthFraction + fullMonthsAfterJoin) : 12;
+    const perUnitOld = monthUnits>0 ? remainingLiabilityOld / monthUnits : 0;
+    const perUnitNew = monthUnits>0 ? remainingLiabilityNew / monthUnits : 0;
+    const proRatedTdsOld = perUnitOld * joinMonthFraction;
+    const proRatedTdsNew = perUnitNew * joinMonthFraction;
+
     // ---- month-wise table ----
     const monthRows = [];
     let totSalary=0, totTdsOld=0, totTdsNew=0;
@@ -848,11 +859,11 @@
         monthRows.push({month:label, employer:"Previous", salary:salaryAvg, tdsOld:tdsAvg, tdsNew:tdsAvg, cls:"month-prev", prorated:false});
         totSalary+=salaryAvg; totTdsOld+=tdsAvg; totTdsNew+=tdsAvg;
       } else if(isMidYear && i === joinIdx){
-        monthRows.push({month:label, employer:"Current", salary:proRatedJoinMonthSalary, tdsOld:flatMonthlyOld, tdsNew:flatMonthlyNew, cls:"month-prorated", prorated:true, days: daysWorkedInJoinMonth + "/" + daysInJoinMonth});
-        totSalary+=proRatedJoinMonthSalary; totTdsOld+=flatMonthlyOld; totTdsNew+=flatMonthlyNew;
+        monthRows.push({month:label, employer:"Current", salary:proRatedJoinMonthSalary, tdsOld:proRatedTdsOld, tdsNew:proRatedTdsNew, cls:"month-prorated", prorated:true, days: daysWorkedInJoinMonth + "/" + daysInJoinMonth});
+        totSalary+=proRatedJoinMonthSalary; totTdsOld+=proRatedTdsOld; totTdsNew+=proRatedTdsNew;
       } else {
-        monthRows.push({month:label, employer:"Current", salary:currentEmployerMonthlyRate, tdsOld:flatMonthlyOld, tdsNew:flatMonthlyNew, cls:"month-curr", prorated:false});
-        totSalary+=currentEmployerMonthlyRate; totTdsOld+=flatMonthlyOld; totTdsNew+=flatMonthlyNew;
+        monthRows.push({month:label, employer:"Current", salary:currentEmployerMonthlyRate, tdsOld:perUnitOld, tdsNew:perUnitNew, cls:"month-curr", prorated:false});
+        totSalary+=currentEmployerMonthlyRate; totTdsOld+=perUnitOld; totTdsNew+=perUnitNew;
       }
     }
     const mtBody = document.getElementById("monthTableBody");
