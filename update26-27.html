@@ -3,441 +3,1082 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tax Regime Statement — FY 2025-26</title>
+<title>Tax Regime Optimizer — FY 2025-26</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#10192E;
-    --ink-soft:#2C3A57;
-    --paper:#F7F5EF;
-    --paper-raised:#FFFFFF;
-    --line:#DAD5C6;
-    --line-strong:#B9B2A0;
-    --brass:#A9791E;
-    --brass-soft:#EFE1C1;
-    --new-regime:#1F7A5C;
-    --new-regime-soft:#E1F1EA;
-    --old-regime:#2A4B8D;
-    --old-regime-soft:#E5EAF6;
-    --danger:#9A3B34;
-    --text:#181D28;
-    --text-muted:#5B6270;
-    --text-faint:#8B8F99;
-    --font-display:'Fraunces', 'Iowan Old Style', Georgia, serif;
-    --font-body:'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-mono:'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
-    --radius-s:4px;
-    --radius-m:8px;
-    color-scheme: light;
+  :root {
+    --primary-blue: #2563eb;
+    --primary-dark: #1e40af;
+    --primary-light: #dbeafe;
+    --success-green: #10b981;
+    --danger-red: #ef4444;
+    --warning-orange: #f59e0b;
+    --white: #ffffff;
+    --light-gray: #f3f4f6;
+    --medium-gray: #e5e7eb;
+    --dark-gray: #6b7280;
+    --darker-gray: #374151;
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --ink:#EFE9DA; --ink-soft:#C7CBDA;
-      --paper:#0D1119; --paper-raised:#161C29;
-      --line:#2B3242; --line-strong:#3C455A;
-      --brass:#D3AC5C; --brass-soft:#3A3220;
-      --new-regime:#4FBF95; --new-regime-soft:#123028;
-      --old-regime:#7C9EDC; --old-regime-soft:#141F35;
-      --danger:#E07A6E;
-      --text:#EDEAE0; --text-muted:#A7ACB9; --text-faint:#767C8B;
-      color-scheme: dark;
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 16px;
+  }
+
+  .app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* ========== HEADER ========== */
+  .header {
+    background: var(--white);
+    padding: 32px 24px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 32px;
+    border-top: 4px solid var(--primary-blue);
+  }
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .header-left h1 {
+    font-size: clamp(24px, 5vw, 36px);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .header-left p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    max-width: 500px;
+  }
+
+  .header-right {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .fy-badge {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* ========== MAIN LAYOUT ========== */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  @media (max-width: 1024px) {
+    .main-grid {
+      grid-template-columns: 1fr;
     }
   }
-  :root[data-theme="dark"]{
-    --ink:#EFE9DA; --ink-soft:#C7CBDA;
-    --paper:#0D1119; --paper-raised:#161C29;
-    --line:#2B3242; --line-strong:#3C455A;
-    --brass:#D3AC5C; --brass-soft:#3A3220;
-    --new-regime:#4FBF95; --new-regime-soft:#123028;
-    --old-regime:#7C9EDC; --old-regime-soft:#141F35;
-    --danger:#E07A6E;
-    --text:#EDEAE0; --text-muted:#A7ACB9; --text-faint:#767C8B;
-    color-scheme: dark;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0; background:var(--paper); color:var(--text);
-    font-family:var(--font-body); font-size:15px; line-height:1.5;
-    padding:28px 16px 60px;
-  }
-  .app{ max-width:1180px; margin:0 auto; }
 
-  /* ---------- Masthead ---------- */
-  .masthead{
-    display:flex; justify-content:space-between; align-items:flex-end;
-    gap:20px; padding-bottom:20px; border-bottom:2px solid var(--ink);
-    margin-bottom:26px; flex-wrap:wrap;
-  }
-  .masthead-left{ display:flex; flex-direction:column; gap:4px; }
-  .eyebrow{
-    font-family:var(--font-mono); font-size:11.5px; letter-spacing:.04em;
-    color:var(--brass); font-weight:500;
-  }
-  h1{
-    font-family:var(--font-display); font-weight:600; font-size:clamp(28px,4vw,40px);
-    margin:0; color:var(--text); line-height:1.05;
-  }
-  .masthead-sub{ color:var(--text-muted); font-size:13.5px; max-width:460px; }
-  .masthead-right{ display:flex; align-items:center; gap:10px; }
-  .theme-toggle{
-    border:1px solid var(--line-strong); background:var(--paper-raised); color:var(--text);
-    border-radius:999px; padding:8px 14px; font-family:var(--font-mono); font-size:12px;
-    cursor:pointer; display:flex; align-items:center; gap:6px;
-  }
-  .theme-toggle:hover{ border-color:var(--brass); }
-  .fy-badge{
-    font-family:var(--font-mono); font-size:12px; border:1px solid var(--line-strong);
-    padding:7px 12px; border-radius:999px; color:var(--text-muted); background:var(--paper-raised);
+  /* ========== PANELS ========== */
+  .panel {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 20px;
   }
 
-  /* ---------- Layout ---------- */
-  .ledger-grid{
-    display:grid; grid-template-columns:340px 1fr; gap:24px; align-items:start;
-  }
-  @media (max-width:860px){ .ledger-grid{ grid-template-columns:1fr; } }
-
-  /* ---------- Input card ---------- */
-  .panel{
-    background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius-m);
-    padding:22px;
-  }
-  .panel + .panel{ margin-top:20px; }
-  .panel-title{
-    font-family:var(--font-display); font-size:17px; font-weight:600; margin:0 0 4px;
-  }
-  .panel-hint{ font-size:12.5px; color:var(--text-faint); margin:0 0 18px; }
-
-  .field{ margin-bottom:16px; }
-  .field:last-child{ margin-bottom:0; }
-  .field label{
-    display:flex; justify-content:space-between; align-items:baseline;
-    font-size:12.5px; font-weight:600; color:var(--text-muted); margin-bottom:6px;
-  }
-  .field label .cap{ font-weight:400; font-family:var(--font-mono); font-size:11px; color:var(--text-faint); }
-  .amount-input{ position:relative; }
-  .amount-input span{
-    position:absolute; left:12px; top:50%; transform:translateY(-50%);
-    font-family:var(--font-mono); color:var(--text-faint); font-size:14px; pointer-events:none;
-  }
-  .amount-input input{
-    width:100%; padding:10px 12px 10px 26px; border:1px solid var(--line-strong);
-    border-radius:var(--radius-s); background:var(--paper); color:var(--text);
-    font-family:var(--font-mono); font-size:14.5px;
-  }
-  .amount-input input:focus{ outline:none; border-color:var(--brass); box-shadow:0 0 0 3px var(--brass-soft); }
-
-  .seg{ display:flex; border:1px solid var(--line-strong); border-radius:var(--radius-s); overflow:hidden; }
-  .seg button{
-    flex:1; padding:9px 4px; background:var(--paper); border:none; color:var(--text-muted);
-    font-family:var(--font-body); font-size:12.5px; cursor:pointer; border-right:1px solid var(--line-strong);
-  }
-  .seg button:last-child{ border-right:none; }
-  .seg button.active{ background:var(--ink); color:var(--paper); font-weight:600; }
-
-  .divider-label{
-    font-family:var(--font-mono); font-size:11px; color:var(--text-faint); letter-spacing:.03em;
-    margin:18px 0 12px; padding-top:14px; border-top:1px dashed var(--line);
+  .panel-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  /* ---------- Statement (right column) ---------- */
-  .verdict-banner{
-    border-radius:var(--radius-m); padding:22px 24px; display:flex; justify-content:space-between;
-    align-items:center; gap:16px; flex-wrap:wrap; border:1px solid var(--line); margin-bottom:20px;
+  .panel-icon {
+    width: 24px;
+    height: 24px;
+    background: var(--primary-light);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-blue);
+    font-size: 14px;
   }
-  .verdict-banner.win-new{ background:var(--new-regime-soft); border-color:var(--new-regime); }
-  .verdict-banner.win-old{ background:var(--old-regime-soft); border-color:var(--old-regime); }
-  .verdict-banner.tie{ background:var(--paper-raised); }
-  .verdict-text .label{ font-family:var(--font-mono); font-size:11.5px; color:var(--text-muted); margin-bottom:4px; }
-  .verdict-text .headline{ font-family:var(--font-display); font-size:22px; font-weight:600; }
-  .verdict-amount{ font-family:var(--font-mono); font-size:28px; font-weight:600; text-align:right; }
-  .verdict-amount small{ display:block; font-family:var(--font-body); font-size:11px; font-weight:400; color:var(--text-muted); }
 
-  .stat-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
-  @media (max-width:600px){ .stat-row{ grid-template-columns:1fr; } }
-  .regime-card{
-    background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius-m);
-    padding:18px 20px; border-top:3px solid var(--line-strong);
+  .panel-hint {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
   }
-  .regime-card.old{ border-top-color:var(--old-regime); }
-  .regime-card.new{ border-top-color:var(--new-regime); }
-  .regime-card .rc-title{ font-family:var(--font-mono); font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; }
-  .regime-card .rc-total{ font-family:var(--font-mono); font-size:26px; font-weight:600; margin:8px 0 2px; }
-  .regime-card .rc-sub{ font-size:12px; color:var(--text-faint); }
-  .rc-row{ display:flex; justify-content:space-between; font-size:12.5px; color:var(--text-muted); margin-top:10px; padding-top:10px; border-top:1px dashed var(--line); }
-  .rc-row b{ color:var(--text); font-family:var(--font-mono); font-weight:600; }
 
-  .compare-bars{ margin-bottom:20px; }
-  .bar-row{ margin-bottom:14px; }
-  .bar-row .bar-label{ display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted); margin-bottom:6px; font-family:var(--font-mono); }
-  .bar-track{ height:26px; width:100%; background:var(--line); border-radius:4px; overflow:hidden; display:flex; }
-  .bar-fill{ height:100%; display:flex; align-items:center; }
-  .bar-fill.takehome-old{ background:var(--old-regime); }
-  .bar-fill.takehome-new{ background:var(--new-regime); }
-  .bar-fill.tax{ background:var(--danger); opacity:.55; }
-
-  details.breakdown{
-    background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius-m);
-    padding:4px 20px; margin-bottom:20px;
+  /* ========== FORM FIELDS ========== */
+  .form-group {
+    margin-bottom: 20px;
   }
-  details.breakdown summary{
-    cursor:pointer; padding:14px 0; font-family:var(--font-display); font-size:16px; font-weight:600;
-    list-style:none; display:flex; justify-content:space-between; align-items:center;
+
+  .form-group:last-child {
+    margin-bottom: 0;
   }
-  details.breakdown summary::-webkit-details-marker{ display:none; }
-  details.breakdown summary .chev{ transition:transform .18s ease; color:var(--text-faint); font-family:var(--font-mono); }
-  details.breakdown[open] summary .chev{ transform:rotate(90deg); }
 
-  table.ledger{ width:100%; border-collapse:collapse; font-family:var(--font-mono); font-size:13px; margin-bottom:16px; }
-  table.ledger th{
-    text-align:right; font-family:var(--font-body); font-size:11.5px; color:var(--text-muted);
-    font-weight:600; padding:8px 6px; border-bottom:1px solid var(--line-strong);
+  .label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 14px;
   }
-  table.ledger th:first-child{ text-align:left; }
-  table.ledger td{ text-align:right; padding:8px 6px; border-bottom:1px solid var(--line); color:var(--text); }
-  table.ledger td:first-child{ text-align:left; color:var(--text-muted); font-family:var(--font-body); font-size:12.5px; }
-  table.ledger tr.total td{ font-weight:600; border-top:2px solid var(--ink); border-bottom:none; padding-top:12px; color:var(--text); }
-  table.ledger tr.total td:first-child{ font-family:var(--font-display); font-size:14px; color:var(--text); }
-  table.ledger tr.slab-row td{ color:var(--text-faint); font-size:12px; }
-  .relief-tag{ font-family:var(--font-body); font-size:10.5px; background:var(--brass-soft); color:var(--brass); padding:1px 6px; border-radius:999px; margin-left:6px; }
 
-  .monthly-card{
-    background:var(--ink); color:var(--paper); border-radius:var(--radius-m); padding:20px 22px;
-    display:flex; justify-content:space-between; align-items:center; gap:18px; flex-wrap:wrap; margin-bottom:20px;
+  .cap {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    background: var(--light-gray);
+    padding: 2px 8px;
+    border-radius: 4px;
   }
-  .monthly-card .mc-label{ font-family:var(--font-mono); font-size:11.5px; opacity:.65; }
-  .monthly-card .mc-value{ font-family:var(--font-display); font-size:24px; font-weight:600; }
-  .monthly-grid{ display:flex; gap:26px; flex-wrap:wrap; }
-  .monthly-item{ min-width:120px; }
 
-  .actions{ display:flex; gap:10px; justify-content:flex-end; margin-bottom:8px; }
-  .btn{
-    font-family:var(--font-body); font-size:12.5px; font-weight:600; border-radius:var(--radius-s);
-    padding:10px 16px; cursor:pointer; border:1px solid var(--line-strong); background:var(--paper-raised); color:var(--text);
+  .input-wrapper {
+    position: relative;
   }
-  .btn.primary{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
 
-  footer{ margin-top:30px; text-align:center; color:var(--text-faint); font-size:11.5px; line-height:1.6; }
-  footer a{ color:var(--brass); }
+  .input-wrapper.currency input {
+    padding-left: 28px;
+  }
 
-  @media print{
-    .theme-toggle, .actions{ display:none; }
-    body{ background:#fff; color:#111; }
+  .currency-symbol {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-blue);
+    font-weight: 600;
+    pointer-events: none;
+  }
+
+  input[type="number"],
+  input[type="text"],
+  input[type="range"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    background: var(--light-gray);
+  }
+
+  input[type="number"]:focus,
+  input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    background: var(--white);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  }
+
+  input[type="range"] {
+    padding: 0;
+    height: 6px;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-blue);
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-blue);
+    cursor: pointer;
+    border: none;
+    box-shadow: var(--shadow-md);
+  }
+
+  /* ========== SEGMENT BUTTONS ========== */
+  .segment-group {
+    display: flex;
+    gap: 8px;
+    background: var(--light-gray);
+    padding: 4px;
+    border-radius: 8px;
+  }
+
+  .segment-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: var(--light-gray);
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .segment-btn.active {
+    background: var(--primary-blue);
+    color: var(--white);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .segment-btn:hover:not(.active) {
+    background: var(--medium-gray);
+  }
+
+  /* ========== VERDICT BANNER ========== */
+  .verdict-banner {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+    color: var(--white);
+    border-radius: 12px;
+    padding: 32px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 24px;
+  }
+
+  .verdict-banner.win-new {
+    background: linear-gradient(135deg, var(--success-green), #059669);
+  }
+
+  .verdict-banner.win-old {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+  }
+
+  .verdict-text .label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .verdict-headline {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .verdict-amount {
+    text-align: right;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .verdict-amount small {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 4px;
+  }
+
+  /* ========== STAT CARDS ========== */
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .stat-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .regime-card {
+    background: var(--white);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .regime-card.old {
+    border-top: 4px solid var(--primary-blue);
+  }
+
+  .regime-card.new {
+    border-top: 4px solid var(--success-green);
+  }
+
+  .regime-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+
+  .regime-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .regime-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-secondary);
+  }
+
+  .regime-rate {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary-blue);
+  }
+
+  .regime-card.new .regime-rate {
+    color: var(--success-green);
+  }
+
+  .regime-total {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .regime-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  .regime-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-top: 1px solid var(--border-color);
+    font-size: 13px;
+  }
+
+  .regime-row:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .regime-row b {
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  /* ========== COMPARISON BARS ========== */
+  .bar-container {
+    margin-bottom: 20px;
+  }
+
+  .bar-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .bar-track {
+    height: 32px;
+    background: var(--light-gray);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .bar-fill {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 600;
+    transition: width 0.3s ease;
+  }
+
+  .bar-fill.old {
+    background: linear-gradient(90deg, var(--primary-blue), var(--primary-dark));
+  }
+
+  .bar-fill.new {
+    background: linear-gradient(90deg, var(--success-green), #059669);
+  }
+
+  /* ========== BREAKDOWN TABLE ========== */
+  .breakdown-section {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+
+  .breakdown-header {
+    padding: 20px 24px;
+    background: var(--light-gray);
+    border-bottom: 2px solid var(--border-color);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+
+  .breakdown-header:hover {
+    background: var(--medium-gray);
+  }
+
+  .chevron {
+    transition: transform 0.3s ease;
+    color: var(--primary-blue);
+  }
+
+  .breakdown-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .breakdown-content.open {
+    max-height: 2000px;
+  }
+
+  .table-wrapper {
+    padding: 24px;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  th {
+    text-align: right;
+    padding: 12px;
+    background: var(--light-gray);
+    font-weight: 700;
+    color: var(--text-secondary);
+    font-size: 12px;
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  th:first-child {
+    text-align: left;
+  }
+
+  td {
+    text-align: right;
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+  }
+
+  td:first-child {
+    text-align: left;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  tr.total td {
+    font-weight: 700;
+    background: var(--light-gray);
+    border-top: 2px solid var(--primary-blue);
+    border-bottom: none;
+  }
+
+  tr.slab-row td {
+    color: var(--text-secondary);
+    font-size: 12px;
+  }
+
+  .relief-tag {
+    display: inline-block;
+    background: var(--warning-orange);
+    color: var(--white);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+  }
+
+  /* ========== MONTHLY CARD ========== */
+  .monthly-card {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+    color: var(--white);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .monthly-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 32px;
+  }
+
+  .monthly-item .mc-label {
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .monthly-item .mc-value {
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  /* ========== BUTTONS ========== */
+  .button-group {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .button-group {
+      justify-content: stretch;
+    }
+
+    .button-group button {
+      flex: 1;
+    }
+  }
+
+  .btn {
+    padding: 12px 24px;
+    border: 2px solid var(--border-color);
+    background: var(--white);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn:hover {
+    border-color: var(--primary-blue);
+    background: var(--primary-light);
+    color: var(--primary-blue);
+  }
+
+  .btn.primary {
+    background: var(--primary-blue);
+    color: var(--white);
+    border-color: var(--primary-blue);
+  }
+
+  .btn.primary:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+  }
+
+  .btn.success {
+    background: var(--success-green);
+    color: var(--white);
+    border-color: var(--success-green);
+  }
+
+  .btn.success:hover {
+    background: #059669;
+    border-color: #059669;
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 12px;
+    line-height: 1.6;
+    padding: 20px;
+    margin-top: 40px;
+  }
+
+  footer a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* ========== MOBILE RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    body {
+      padding: 12px;
+    }
+
+    .header {
+      padding: 20px 16px;
+      margin-bottom: 20px;
+    }
+
+    .header-left h1 {
+      font-size: 24px;
+    }
+
+    .panel {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .panel-title {
+      font-size: 16px;
+    }
+
+    .main-grid {
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .verdict-banner {
+      padding: 20px 16px;
+      font-size: 14px;
+    }
+
+    .verdict-headline {
+      font-size: 20px;
+    }
+
+    .verdict-amount {
+      font-size: 24px;
+    }
+
+    .stat-row {
+      gap: 12px;
+    }
+
+    .regime-total {
+      font-size: 22px;
+    }
+
+    .monthly-card {
+      padding: 16px;
+    }
+
+    .monthly-grid {
+      gap: 16px;
+    }
+
+    .monthly-item .mc-value {
+      font-size: 22px;
+    }
+
+    .table-wrapper {
+      padding: 16px;
+    }
+
+    table {
+      font-size: 12px;
+    }
+
+    th, td {
+      padding: 8px 6px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    input[type="number"],
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .label {
+      font-size: 13px;
+    }
+  }
+
+  /* ========== PRINT STYLES ========== */
+  @media print {
+    body {
+      background: var(--white);
+      padding: 0;
+    }
+
+    .button-group {
+      display: none;
+    }
+
+    .header {
+      border-top: 2px solid var(--primary-blue);
+      page-break-after: avoid;
+    }
+
+    .panel {
+      page-break-inside: avoid;
+    }
   }
 </style>
 </head>
 <body>
-<div class="app">
 
-  <div class="masthead">
-    <div class="masthead-left">
-      <span class="eyebrow">INCOME TAX WORKSHEET</span>
-      <h1>Old vs New Regime Statement</h1>
-      <p class="masthead-sub">Compare your tax liability under both regimes for FY 2025-26 (AY 2026-27), including surcharge and marginal relief — figures update as you type.</p>
-    </div>
-    <div class="masthead-right">
-      <span class="fy-badge">FY 2025-26 · AY 2026-27</span>
-      <button class="theme-toggle" id="themeToggle" type="button">◐ <span id="themeLabel">Auto</span></button>
+<div class="app-container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-content">
+      <div class="header-left">
+        <h1>💰 Tax Regime Optimizer</h1>
+        <p>Compare your tax liability under Old and New regimes for FY 2025-26. Figures update instantly as you adjust inputs.</p>
+      </div>
+      <div class="header-right">
+        <div class="fy-badge">📅 FY 2025-26 · AY 2026-27</div>
+      </div>
     </div>
   </div>
 
-  <div class="ledger-grid">
+  <!-- MAIN CONTENT -->
+  <div class="main-grid">
 
-    <!-- ============ INPUT COLUMN ============ -->
+    <!-- LEFT COLUMN: INPUTS -->
     <aside>
       <div class="panel">
-        <p class="panel-title">Your income</p>
-        <p class="panel-hint">Excludes special-rate income such as capital gains.</p>
-
-        <div class="field">
-          <label>Gross annual salary <span class="cap">CTC / total income</span></label>
-          <div class="amount-input"><span>₹</span><input type="number" id="grossIncome" value="1200000" min="0" step="1000"></div>
+        <div class="panel-title">
+          <div class="panel-icon">💼</div>
+          Your Income
         </div>
+        <p class="panel-hint">Enter your annual salary or gross income</p>
 
-        <div class="field">
-          <label>Age category</label>
-          <div class="seg" id="ageSeg">
-            <button data-val="below60" class="active">Below 60</button>
-            <button data-val="senior">60–80</button>
-            <button data-val="supersenior">80+</button>
+        <div class="form-group">
+          <label class="label">
+            Gross annual salary / CTC
+            <span class="cap">₹ per annum</span>
+          </label>
+          <div class="input-wrapper currency">
+            <span class="currency-symbol">₹</span>
+            <input type="number" id="grossIncome" value="1200000" min="0" step="10000">
           </div>
         </div>
 
-        <div class="field">
-          <label>Employer NPS contribution — 80CCD(2) <span class="cap">both regimes</span></label>
-          <div class="amount-input"><span>₹</span><input type="number" id="corpNps" value="76000" min="0" step="500"></div>
+        <div class="form-group">
+          <label class="label">Age category</label>
+          <div class="segment-group" id="ageSeg">
+            <button class="segment-btn active" data-val="below60">Below 60</button>
+            <button class="segment-btn" data-val="senior">60–80</button>
+            <button class="segment-btn" data-val="supersenior">80+</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="label">
+            Employer NPS contribution — 80CCD(2)
+            <span class="cap">Both regimes</span>
+          </label>
+          <div class="input-wrapper currency">
+            <span class="currency-symbol">₹</span>
+            <input type="number" id="corpNps" value="76000" min="0" step="1000">
+          </div>
         </div>
       </div>
 
       <div class="panel">
-        <p class="panel-title">Old regime deductions</p>
-        <p class="panel-hint">Only applied to the Old regime column — the New regime doesn't allow these.</p>
+        <div class="panel-title">
+          <div class="panel-icon">📋</div>
+          Old Regime Deductions
+        </div>
+        <p class="panel-hint">These are only available under the Old regime</p>
 
-        <div class="field">
-          <label>Section 80C <span class="cap">cap ₹1,50,000</span></label>
-          <div class="amount-input"><span>₹</span><input type="number" id="sec80C" value="150000" min="0" step="1000"></div>
+        <div class="form-group">
+          <label class="label">
+            Section 80C
+            <span class="cap">Max ₹1,50,000</span>
+          </label>
+          <div class="input-wrapper currency">
+            <span class="currency-symbol">₹</span>
+            <input type="number" id="sec80C" value="150000" min="0" step="1000">
+          </div>
         </div>
-        <div class="field">
-          <label>Section 80D — health insurance <span class="cap">cap varies by age</span></label>
-          <div class="amount-input"><span>₹</span><input type="number" id="sec80D" value="50000" min="0" step="1000"></div>
+
+        <div class="form-group">
+          <label class="label">
+            Section 80D — Health insurance
+            <span class="cap">Varies by age</span>
+          </label>
+          <div class="input-wrapper currency">
+            <span class="currency-symbol">₹</span>
+            <input type="number" id="sec80D" value="50000" min="0" step="1000">
+          </div>
         </div>
-        <div class="field">
-          <label>Section 80CCD(1B) — self NPS <span class="cap">cap ₹50,000</span></label>
-          <div class="amount-input"><span>₹</span><input type="number" id="sec80CCD" value="50000" min="0" step="1000"></div>
+
+        <div class="form-group">
+          <label class="label">
+            Section 80CCD(1B) — Self NPS
+            <span class="cap">Max ₹50,000</span>
+          </label>
+          <div class="input-wrapper currency">
+            <span class="currency-symbol">₹</span>
+            <input type="number" id="sec80CCD" value="50000" min="0" step="1000">
+          </div>
         </div>
-        <div class="field">
-          <label>Section 24(b) — home loan interest <span class="cap">cap ₹2,00,000</span></label>
-          <div class="amount-input"><span>₹</span><input type="number" id="sec24b" value="200000" min="0" step="1000"></div>
+
+        <div class="form-group">
+          <label class="label">
+            Section 24(b) — Home loan interest
+            <span class="cap">Max ₹2,00,000</span>
+          </label>
+          <div class="input-wrapper currency">
+            <span class="currency-symbol">₹</span>
+            <input type="number" id="sec24b" value="200000" min="0" step="1000">
+          </div>
         </div>
-        <div class="field">
-          <label>HRA exemption <span class="cap">computed amount</span></label>
-          <div class="amount-input"><span>₹</span><input type="number" id="hra" value="150000" min="0" step="1000"></div>
+
+        <div class="form-group">
+          <label class="label">
+            HRA exemption
+            <span class="cap">Your amount</span>
+          </label>
+          <div class="input-wrapper currency">
+            <span class="currency-symbol">₹</span>
+            <input type="number" id="hra" value="150000" min="0" step="1000">
+          </div>
         </div>
       </div>
 
       <div class="panel">
-        <p class="panel-title">TDS spread</p>
-        <div class="field" style="margin-bottom:0;">
-          <label>Months remaining in FY <span class="cap" id="monthsCapLabel">of 12</span></label>
-          <input type="range" id="monthsLeft" min="1" max="12" value="12" style="width:100%;">
+        <div class="panel-title">
+          <div class="panel-icon">📊</div>
+          TDS Timeline
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="label">
+            Months remaining in FY
+            <span class="cap" id="monthsCapLabel">of 12</span>
+          </label>
+          <input type="range" id="monthsLeft" min="1" max="12" value="12">
+          <div style="text-align: center; margin-top: 8px; color: var(--primary-blue); font-weight: 700; font-size: 16px;" id="monthsDisplay">12 months</div>
         </div>
       </div>
     </aside>
 
-    <!-- ============ STATEMENT COLUMN ============ -->
+    <!-- RIGHT COLUMN: RESULTS -->
     <main>
+      <!-- VERDICT BANNER -->
       <div class="verdict-banner" id="verdict">
         <div class="verdict-text">
-          <div class="label">VERDICT</div>
-          <div class="headline" id="verdictHeadline">Calculating…</div>
+          <div class="label">🎯 VERDICT</div>
+          <div class="verdict-headline" id="verdictHeadline">Calculating…</div>
         </div>
         <div class="verdict-amount" id="verdictAmount">₹0<small>saved annually</small></div>
       </div>
 
+      <!-- REGIME COMPARISON CARDS -->
       <div class="stat-row">
         <div class="regime-card old">
-          <div class="rc-title"><span>OLD REGIME</span><span id="oldEffRate">0.0%</span></div>
-          <div class="rc-total" id="oldTotalTax">₹0</div>
-          <div class="rc-sub">total tax payable, incl. cess</div>
-          <div class="rc-row"><span>Take-home / year</span><b id="oldTakehome">₹0</b></div>
+          <div class="regime-header">
+            <span class="regime-name">📌 OLD REGIME</span>
+            <span class="regime-rate" id="oldEffRate">0.0%</span>
+          </div>
+          <div class="regime-total" id="oldTotalTax">₹0</div>
+          <div class="regime-label">Total tax payable (inc. cess)</div>
+          <div class="regime-row">
+            <span>Take-home per year</span>
+            <b id="oldTakehome">₹0</b>
+          </div>
         </div>
+
         <div class="regime-card new">
-          <div class="rc-title"><span>NEW REGIME</span><span id="newEffRate">0.0%</span></div>
-          <div class="rc-total" id="newTotalTax">₹0</div>
-          <div class="rc-sub">total tax payable, incl. cess</div>
-          <div class="rc-row"><span>Take-home / year</span><b id="newTakehome">₹0</b></div>
+          <div class="regime-header">
+            <span class="regime-name">✨ NEW REGIME</span>
+            <span class="regime-rate" id="newEffRate">0.0%</span>
+          </div>
+          <div class="regime-total" id="newTotalTax">₹0</div>
+          <div class="regime-label">Total tax payable (inc. cess)</div>
+          <div class="regime-row">
+            <span>Take-home per year</span>
+            <b id="newTakehome">₹0</b>
+          </div>
         </div>
       </div>
 
-      <div class="compare-bars">
-        <div class="bar-row">
-          <div class="bar-label"><span>Old regime — take-home vs tax</span><span id="oldBarPct">0%</span></div>
-          <div class="bar-track"><div class="bar-fill takehome-old" id="oldBarFill"></div></div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label"><span>New regime — take-home vs tax</span><span id="newBarPct">0%</span></div>
-          <div class="bar-track"><div class="bar-fill takehome-new" id="newBarFill"></div></div>
+      <!-- COMPARISON BARS -->
+      <div class="bar-container">
+        <div class="bar-label"><span>Old Regime — Take-home breakdown</span><span id="oldBarPct">0%</span></div>
+        <div class="bar-track">
+          <div class="bar-fill old" id="oldBarFill"></div>
         </div>
       </div>
 
-      <details class="breakdown" open>
-        <summary>Full computation <span class="chev">›</span></summary>
-        <table class="ledger">
-          <thead>
-            <tr><th>Line item</th><th>Old regime</th><th>New regime</th></tr>
-          </thead>
-          <tbody id="ledgerBody"></tbody>
-        </table>
-      </details>
+      <div class="bar-container">
+        <div class="bar-label"><span>New Regime — Take-home breakdown</span><span id="newBarPct">0%</span></div>
+        <div class="bar-track">
+          <div class="bar-fill new" id="newBarFill"></div>
+        </div>
+      </div>
 
+      <!-- BREAKDOWN TABLE -->
+      <div class="breakdown-section">
+        <div class="breakdown-header" id="breakdownToggle">
+          <span>📐 Full Computation Details</span>
+          <span class="chevron">▶</span>
+        </div>
+        <div class="breakdown-content open" id="breakdownContent">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Line Item</th>
+                  <th>Old Regime</th>
+                  <th>New Regime</th>
+                </tr>
+              </thead>
+              <tbody id="ledgerBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- MONTHLY CARD -->
       <div class="monthly-card">
         <div class="monthly-grid">
           <div class="monthly-item">
-            <div class="mc-label">MONTHLY TDS — OLD</div>
+            <div class="mc-label">📅 Monthly TDS (Old)</div>
             <div class="mc-value" id="oldMonthlyTds">₹0</div>
           </div>
           <div class="monthly-item">
-            <div class="mc-label">MONTHLY TDS — NEW</div>
+            <div class="mc-label">📅 Monthly TDS (New)</div>
             <div class="mc-value" id="newMonthlyTds">₹0</div>
           </div>
           <div class="monthly-item">
-            <div class="mc-label">MONTHLY IN-HAND — BETTER REGIME</div>
+            <div class="mc-label">💳 Best Monthly In-hand</div>
             <div class="mc-value" id="bestMonthlyInhand">₹0</div>
           </div>
         </div>
       </div>
 
-      <div class="actions">
-        <button class="btn" type="button" id="resetBtn">Reset to defaults</button>
-        <button class="btn primary" type="button" id="printBtn">Print statement</button>
+      <!-- ACTION BUTTONS -->
+      <div class="button-group">
+        <button class="btn" id="resetBtn">↻ Reset to defaults</button>
+        <button class="btn" id="printBtn">🖨️ Print</button>
+        <button class="btn success" id="exportBtn">📥 Export as PDF</button>
       </div>
     </main>
   </div>
 
+  <!-- FOOTER -->
   <footer>
-    Estimates only, for planning purposes — not tax advice. Based on FY 2025-26 (AY 2026-27) slabs and Section 87A rebate limits announced in the Union Budget 2025; the same rates carried into FY 2026-27. Includes standard surcharge marginal relief. Verify final liability with a tax professional or the official <a href="https://www.incometax.gov.in" target="_blank" rel="noopener">Income Tax e-filing portal</a>.
+    <p>⚠️ <strong>Estimates only</strong> — for planning purposes, not tax advice. Based on FY 2025-26 (AY 2026-27) slabs and Section 87A rebate limits. Includes standard surcharge and marginal relief. Verify final liability with a tax professional or the official <a href="https://www.incometax.gov.in" target="_blank" rel="noopener">Income Tax e-filing portal</a>.</p>
   </footer>
 </div>
+
+<!-- EXTERNAL LIBRARIES FOR PDF EXPORT -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
 (function(){
   "use strict";
 
-  // ---------- persistence (per-viewer convenience only) ----------
+  // ========== PERSISTENCE ==========
   const FIELD_IDS = ["grossIncome","corpNps","sec80C","sec80D","sec80CCD","sec24b","hra","monthsLeft"];
+  
   function loadSaved(){
     try{
-      const raw = localStorage.getItem("taxCalcInputs_v1");
+      const raw = localStorage.getItem("taxCalcInputs_v2");
       if(!raw) return;
       const saved = JSON.parse(raw);
       FIELD_IDS.forEach(id=>{
         if(saved[id]!==undefined){ const el=document.getElementById(id); if(el) el.value = saved[id]; }
       });
       if(saved.ageCategory){ setAgeCategory(saved.ageCategory, false); }
-      if(saved.theme){ applyTheme(saved.theme, false); }
-    }catch(e){ /* ignore corrupt/unavailable storage */ }
+    }catch(e){ }
   }
+
   function persist(){
     try{
       const data = {};
       FIELD_IDS.forEach(id=>{ const el=document.getElementById(id); if(el) data[id]=el.value; });
       data.ageCategory = ageCategory;
-      data.theme = document.documentElement.getAttribute("data-theme") || "auto";
-      localStorage.setItem("taxCalcInputs_v1", JSON.stringify(data));
-    }catch(e){ /* storage unavailable — continue without persistence */ }
+      localStorage.setItem("taxCalcInputs_v2", JSON.stringify(data));
+    }catch(e){ }
   }
 
-  // ---------- theme ----------
-  function applyTheme(mode, save){
-    if(mode==="auto"){ document.documentElement.removeAttribute("data-theme"); document.getElementById("themeLabel").textContent="Auto"; }
-    else{ document.documentElement.setAttribute("data-theme", mode); document.getElementById("themeLabel").textContent = mode==="dark" ? "Dark" : "Light"; }
-    if(save!==false) persist();
-  }
-  let themeCycle = ["auto","light","dark"];
-  let themeIdx = 0;
-  document.getElementById("themeToggle").addEventListener("click", function(){
-    themeIdx = (themeIdx+1) % themeCycle.length;
-    applyTheme(themeCycle[themeIdx], true);
-  });
-
-  // ---------- age category ----------
+  // ========== AGE CATEGORY ==========
   let ageCategory = "below60";
+  
   function setAgeCategory(val, save){
     ageCategory = val;
-    document.querySelectorAll("#ageSeg button").forEach(b=> b.classList.toggle("active", b.dataset.val===val));
+    document.querySelectorAll("#ageSeg .segment-btn").forEach(b=> b.classList.toggle("active", b.dataset.val===val));
     if(save!==false) persist();
     calculate();
   }
-  document.querySelectorAll("#ageSeg button").forEach(b=>{
+
+  document.querySelectorAll("#ageSeg .segment-btn").forEach(b=>{
     b.addEventListener("click", ()=> setAgeCategory(b.dataset.val, true));
   });
 
-  // ---------- formatting ----------
+  // ========== FORMATTING ==========
   const fmt = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 });
   function inr(n){ n = Math.round(n||0); const sign = n<0?"-":""; return sign + "₹" + fmt.format(Math.abs(n)); }
 
-  // ---------- slab tax engine ----------
+  // ========== TAX CALCULATION ENGINE ==========
   function slabTax(income, brackets){
     let tax = 0, prev = 0;
     for(const b of brackets){
@@ -455,6 +1096,7 @@
     senior:      [{upto:300000,rate:0},{upto:500000,rate:.05},{upto:1000000,rate:.20},{upto:Infinity,rate:.30}],
     supersenior: [{upto:500000,rate:0},{upto:1000000,rate:.20},{upto:Infinity,rate:.30}]
   };
+
   const NEW_BRACKETS = [
     {upto:400000,rate:0},{upto:800000,rate:.05},{upto:1200000,rate:.10},
     {upto:1600000,rate:.15},{upto:2000000,rate:.20},{upto:2400000,rate:.25},{upto:Infinity,rate:.30}
@@ -516,7 +1158,9 @@
     const s24b = Math.min(num("sec24b"), 200000);
     const hra = num("hra");
     const monthsLeft = parseInt(document.getElementById("monthsLeft").value, 10) || 12;
-    document.getElementById("monthsCapLabel").textContent = "of 12 · " + monthsLeft + " left";
+
+    document.getElementById("monthsCapLabel").textContent = "of 12";
+    document.getElementById("monthsDisplay").textContent = monthsLeft + (monthsLeft === 1 ? " month" : " months");
 
     const stdDedOld = 50000, stdDedNew = 75000;
     const oldDeductions = s80C + s80D + s80CCD + s24b + hra;
@@ -529,27 +1173,27 @@
     const oldTakehome = gross - oldR.total;
     const newTakehome = gross - newR.total;
 
-    // ---- verdict banner ----
+    // ---- VERDICT BANNER ----
     const banner = document.getElementById("verdict");
-    banner.classList.remove("win-old","win-new","tie");
+    banner.classList.remove("win-old","win-new");
     const diff = Math.abs(oldR.total - newR.total);
-    let headline, regimeWord;
+    let headline;
     if(Math.round(oldR.total)===Math.round(newR.total)){
-      banner.classList.add("tie");
+      banner.classList.add("win-old");
       headline = "Both regimes result in the same tax";
       document.getElementById("verdictAmount").innerHTML = inr(0) + "<small>no difference</small>";
     } else if(newR.total < oldR.total){
       banner.classList.add("win-new");
-      headline = "New regime saves you money";
+      headline = "✅ New regime saves you money";
       document.getElementById("verdictAmount").innerHTML = inr(diff) + "<small>saved annually vs Old</small>";
     } else {
       banner.classList.add("win-old");
-      headline = "Old regime saves you money";
+      headline = "✅ Old regime saves you money";
       document.getElementById("verdictAmount").innerHTML = inr(diff) + "<small>saved annually vs New</small>";
     }
     document.getElementById("verdictHeadline").textContent = headline;
 
-    // ---- stat cards ----
+    // ---- STAT CARDS ----
     document.getElementById("oldTotalTax").textContent = inr(oldR.total);
     document.getElementById("newTotalTax").textContent = inr(newR.total);
     document.getElementById("oldEffRate").textContent = (gross>0 ? (oldR.total/gross*100).toFixed(1) : "0.0") + "%";
@@ -557,7 +1201,7 @@
     document.getElementById("oldTakehome").textContent = inr(oldTakehome);
     document.getElementById("newTakehome").textContent = inr(newTakehome);
 
-    // ---- bars ----
+    // ---- BARS ----
     const oldPct = gross>0 ? Math.max(0,Math.min(100, oldTakehome/gross*100)) : 100;
     const newPct = gross>0 ? Math.max(0,Math.min(100, newTakehome/gross*100)) : 100;
     document.getElementById("oldBarFill").style.width = oldPct + "%";
@@ -565,7 +1209,7 @@
     document.getElementById("oldBarPct").textContent = oldPct.toFixed(1) + "% take-home";
     document.getElementById("newBarPct").textContent = newPct.toFixed(1) + "% take-home";
 
-    // ---- ledger table ----
+    // ---- LEDGER TABLE ----
     const rows = [];
     const row = (label, a, b, cls) => rows.push('<tr class="'+(cls||'')+'"><td>'+label+'</td><td>'+a+'</td><td>'+b+'</td></tr>');
     row("Gross annual income", inr(gross), inr(gross));
@@ -576,14 +1220,14 @@
     row("Tax on slabs", inr(oldR.grossSlabTax), inr(newR.grossSlabTax), "slab-row");
     row("Section 87A rebate", "−" + inr(oldR.rebate), "−" + inr(newR.rebate), "slab-row");
     row("Tax after rebate", inr(oldR.baseTax), inr(newR.baseTax));
-    row("Surcharge" + (oldR.surchargeRate||newR.surchargeRate ? " (rate: " + (oldR.surchargeRate*100).toFixed(0) + "% / " + (newR.surchargeRate*100).toFixed(0) + "%)" : ""),
+    row("Surcharge" + (oldR.surchargeRate||newR.surchargeRate ? " (" + (oldR.surchargeRate*100).toFixed(0) + "% / " + (newR.surchargeRate*100).toFixed(0) + "%)" : ""),
         inr(oldR.surcharge) + (oldR.surchargeRelief>0 ? '<span class="relief-tag">relief −'+inr(oldR.surchargeRelief)+'</span>' : ''),
         inr(newR.surcharge) + (newR.surchargeRelief>0 ? '<span class="relief-tag">relief −'+inr(newR.surchargeRelief)+'</span>' : ''), "slab-row");
     row("Health & education cess (4%)", inr(oldR.cess), inr(newR.cess), "slab-row");
     row("Total tax payable", inr(oldR.total), inr(newR.total), "total");
     document.getElementById("ledgerBody").innerHTML = rows.join("");
 
-    // ---- monthly ----
+    // ---- MONTHLY ----
     document.getElementById("oldMonthlyTds").textContent = inr(oldR.total / monthsLeft);
     document.getElementById("newMonthlyTds").textContent = inr(newR.total / monthsLeft);
     const bestMonthly = Math.max(oldTakehome, newTakehome) / 12;
@@ -592,16 +1236,22 @@
     persist();
   }
 
-  // ---------- wire up inputs ----------
+  // ========== EVENT LISTENERS ==========
   FIELD_IDS.forEach(id=>{
     const el = document.getElementById(id);
     if(el) el.addEventListener("input", calculate);
   });
 
+  document.getElementById("breakdownToggle").addEventListener("click", ()=>{
+    const content = document.getElementById("breakdownContent");
+    content.classList.toggle("open");
+  });
+
   document.getElementById("printBtn").addEventListener("click", ()=> window.print());
+
   document.getElementById("resetBtn").addEventListener("click", ()=>{
-    try{ localStorage.removeItem("taxCalcInputs_v1"); }catch(e){}
-    document.getElementById("grossIncome").value = 1900000;
+    try{ localStorage.removeItem("taxCalcInputs_v2"); }catch(e){}
+    document.getElementById("grossIncome").value = 1200000;
     document.getElementById("corpNps").value = 76000;
     document.getElementById("sec80C").value = 150000;
     document.getElementById("sec80D").value = 50000;
@@ -610,13 +1260,26 @@
     document.getElementById("hra").value = 150000;
     document.getElementById("monthsLeft").value = 12;
     setAgeCategory("below60", false);
-    applyTheme("auto", false);
     calculate();
   });
 
+  document.getElementById("exportBtn").addEventListener("click", ()=>{
+    const element = document.querySelector(".app-container");
+    const opt = {
+      margin: 10,
+      filename: 'Tax_Regime_Calculation_' + new Date().toISOString().split('T')[0] + '.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+    };
+    html2pdf().set(opt).from(element).save();
+  });
+
+  // ========== INITIALIZE ==========
   loadSaved();
   calculate();
 })();
 </script>
+
 </body>
 </html>
